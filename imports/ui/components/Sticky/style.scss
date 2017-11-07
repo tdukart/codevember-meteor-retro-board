@@ -1,0 +1,30 @@
+@import '../../../styles/colors';
+
+.sticky {
+  width: 100%;
+  padding: 1em;
+  margin: 1em 0;
+  border: 1px solid #000;
+  background: $post-it-yellow;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  &.yellow {
+    background: $post-it-yellow;
+  }
+
+  &.orange {
+    background: $post-it-orange;
+  }
+
+  &.teal {
+    background: $post-it-teal;
+  }
+
+  &.red {
+    background: $post-it-red;
+  }
+
+  &.pink {
+    background: $post-it-pink;
+  }
+}

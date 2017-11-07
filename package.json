@@ -6,19 +6,43 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
+    "bootstrap": "^3.3.7",
+    "history": "^4.7.2",
+    "lodash": "^4.17.4",
+    "logos": "file:../logos",
     "meteor-node-stubs": "^0.3.2",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
+    "react-addons-pure-render-mixin": "^15.6.2",
+    "react-bootstrap": "^0.31.5",
     "react-dom": "^16.0.0",
-    "react-redux": "^5.0.6",
-    "redux": "^3.7.2"
+    "react-redux-meteor": "file:~/dev/react-redux-meteor",
+    "react-router": "^4.2.0",
+    "react-router-bootstrap": "^0.24.4",
+    "react-router-dom": "^4.2.2",
+    "react-router-prop-types": "0.0.2",
+    "react-router-redux": "^5.0.0-alpha.8",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.2.0",
+    "shortid": "^2.2.8"
   },
   "devDependencies": {
     "eslint": "^4.10.0",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-import-resolver-meteor": "^0.4.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-meteor": "^4.1.4",
     "eslint-plugin-react": "^7.4.0",
-    "redux-devtools-extension": "^2.13.2"
+    "node-sass": "^4.6.0"
+  },
+  "cssModules": {
+    "extensions": [
+      "scss"
+    ],
+    "cssClassNamingConvention": {
+      "template": "${name}--${shorthash.unique(path)}"
+    }
   }
 }

@@ -1,0 +1,22 @@
+.app {
+
+}
+
+.brand {
+  padding: 5px;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: black;
+  color: white;
+  display: flex;
+}
+
+.appBody {
+  padding-top: 50px;
+}
