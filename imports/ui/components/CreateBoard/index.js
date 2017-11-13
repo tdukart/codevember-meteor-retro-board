@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, FormGroup, ControlLabel, FormControl, Button, Form } from 'react-bootstrap';
-import { Boards } from '../../../api/boards';
+import { Modal, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 
 class CreateBoard extends React.Component {
   constructor(props) {

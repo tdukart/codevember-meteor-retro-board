@@ -26,7 +26,9 @@ class Board extends React.Component {
 
   onStickyCreate({ body, columnId }) {
     const { boardId } = this.props.match.params;
-    Stickies.insert({ body, columnId, boardId, color: 'yellow' });
+    Stickies.insert({
+      body, columnId, boardId, color: 'yellow',
+    });
     this.setState({
       showStickyDialog: false,
     });
@@ -40,12 +42,11 @@ class Board extends React.Component {
 
   render() {
     const { name, stickies, stickiesLoading } = this.props;
-    const { boardId } = this.props.match.params;
     const { showStickyDialog } = this.state;
 
     const onStickyCreate = stickyData => this.onStickyCreate({
       columnId: this.state.activeColumn,
-      ...stickyData
+      ...stickyData,
     });
     const onStickyDialogClose = () => this.onStickyDialogClose();
 
@@ -73,7 +74,7 @@ class Board extends React.Component {
             </Col>
           </Row>
           <Row>
-            {stickiesLoading ? <Spinner/> : sections}
+            {stickiesLoading ? <Spinner /> : sections}
           </Row>
         </Grid>
         <CreateSticky
@@ -89,14 +90,14 @@ class Board extends React.Component {
 Board.propTypes = {
   name: PropTypes.string.isRequired,
   stickies: PropTypes.arrayOf(PropTypes.any).isRequired,
-  match: ReactRouterPropTypes.match.isRequired,
+  match: ReactRouterPropTypes.match.isRequired, // eslint-disable-line react/no-typos
   stickiesLoading: PropTypes.bool.isRequired,
 };
 
 export default withTracker(({ match }) => {
   const { boardId } = match.params;
-  const boards = Boards.find(boardId).fetch()
-  const board = boards.length > 0 ? boards[0] : {}
+  const boards = Boards.find(boardId).fetch();
+  const board = boards.length > 0 ? boards[0] : {};
 
   const stickyHandle = Meteor.subscribe('stickies.inBoard', boardId);
 

@@ -43,7 +43,7 @@ class BoardList extends React.Component {
     let boardList;
     if (listLoading) {
       boardList = (
-        <Spinner/>
+        <Spinner />
       );
     } else if (boards.length === 0) {
       boardList = (

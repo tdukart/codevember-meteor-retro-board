@@ -15,7 +15,7 @@ const MainLayout = () => (
         <Navbar.Brand className={styles.brand}>
           <img
             src="/img/Sticky-Note-01-Yellow.svg"
-            alt="The Boston Globe"
+            alt="RetroBoard"
           />
         </Navbar.Brand>
       </Navbar.Header>

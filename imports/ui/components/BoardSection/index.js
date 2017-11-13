@@ -4,8 +4,6 @@ import { Panel, Button, Glyphicon } from 'react-bootstrap';
 
 import Sticky from '../Sticky';
 
-import { Stickies } from '../../../api/stickies';
-
 import { styles } from './style.scss';
 
 const BoardSection = ({
