@@ -18,14 +18,17 @@ const MainLayout = () => (
             alt="RetroBoard"
           />
         </Navbar.Brand>
+        <Navbar.Toggle />
       </Navbar.Header>
-      <Nav>
-        <LinkContainer to="/boards" exact>
-          <NavItem>
-            Boards
-          </NavItem>
-        </LinkContainer>
-      </Nav>
+      <Navbar.Collapse>
+        <Nav>
+          <LinkContainer to="/boards" exact>
+            <NavItem>
+              Boards
+            </NavItem>
+          </LinkContainer>
+        </Nav>
+      </Navbar.Collapse>
     </Navbar>
     <div className={`${styles.appBody} container`}>
       <Route
