@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal, FormGroup, ControlLabel, FormControl, Button, Form } from 'react-bootstrap';
 
-class CreateBoard extends React.Component {
+class CreateSticky extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      body: '',
+      body: props.body,
     };
   }
 
@@ -16,12 +16,13 @@ class CreateBoard extends React.Component {
       show: PropTypes.bool.isRequired,
       onCreate: PropTypes.func.isRequired,
       onClose: PropTypes.func.isRequired,
+      body: PropTypes.string.isRequired,
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.show === true && this.props.show === false) {
-      this.setState({ body: '' });
+      this.setState({ body: nextProps.body });
     }
   }
 
@@ -74,4 +75,4 @@ class CreateBoard extends React.Component {
   }
 }
 
-export default CreateBoard;
+export default CreateSticky;

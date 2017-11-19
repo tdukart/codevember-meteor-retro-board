@@ -27,7 +27,10 @@ class Board extends React.Component {
   onStickyCreate({ body, columnId }) {
     const { boardId } = this.props.match.params;
     Stickies.insert({
-      body, columnId, boardId, color: 'yellow',
+      body,
+      columnId,
+      boardId,
+      color: 'yellow',
     });
     this.setState({
       showStickyDialog: false,
@@ -81,6 +84,7 @@ class Board extends React.Component {
           show={showStickyDialog}
           onCreate={onStickyCreate}
           onClose={onStickyDialogClose}
+          body=""
         />
       </div>
     );

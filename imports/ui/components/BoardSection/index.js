@@ -12,6 +12,7 @@ const BoardSection = ({
   const stickyList = stickies.map(stickyData => (
     <Sticky
       key={`sticky-${stickyData._id}`}
+      _id={stickyData._id}
       body={stickyData.body}
       color={stickyData.color}
     />
