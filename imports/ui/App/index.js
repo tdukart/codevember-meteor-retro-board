@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { Provider } from 'react-redux-meteor';
+import { Provider } from '@tdukart/react-redux-meteor-tdukart';
 import thunkMiddleware from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';

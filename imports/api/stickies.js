@@ -22,6 +22,7 @@ Stickies.schema = new SimpleSchema({
 
 Stickies.allow({
   insert: () => (true),
+  update: () => (true),
 });
 
 // eslint-disable-next-line import/prefer-default-export
