@@ -31,3 +31,4 @@ accounts-base
 accounts-ui
 accounts-google
 service-configuration
+twbs:bootstrap

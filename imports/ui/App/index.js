@@ -6,8 +6,6 @@ import thunkMiddleware from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 
-import 'bootstrap/dist/css/bootstrap.css';
-
 import reducers from '../../redux/reducers';
 
 import Layout from '../layouts/Main';
