@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
+import { Button, Glyphicon } from 'react-bootstrap';
+import { Meteor } from 'meteor/meteor';
 
 import CreateSticky from '../CreateSticky';
-
-import { Stickies as stickiesApi } from '../../../api/stickies';
 
 import { styles } from './style.scss';
 
@@ -42,8 +41,8 @@ class Sticky extends React.Component {
       this.setState({ showStickyDialog: true });
     };
 
-    const onStickyCreate = stickyData => {
-      stickiesApi.update(_id, { $set: stickyData });
+    const onStickyCreate = (stickyData) => {
+      Meteor.call('stickies.update', _id, stickyData);
       this.setState({ showStickyDialog: false });
     };
 

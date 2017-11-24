@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
 import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
@@ -23,8 +25,21 @@ Boards.helpers({
   },
 });
 
-Boards.allow({
-  insert: () => (true),
+Meteor.methods({
+  'boards.insert'(name) {
+    check(name, String);
+
+    // Make sure the user is logged in before inserting a task
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    Boards.insert({
+      name,
+      createdAt: Date.now(),
+      owner: this.userId,
+    });
+  },
 });
 
 // eslint-disable-next-line import/prefer-default-export

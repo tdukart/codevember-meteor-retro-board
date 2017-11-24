@@ -24,11 +24,18 @@ class BoardList extends React.Component {
         name: PropTypes.string.isRequired,
       })).isRequired,
       listLoading: PropTypes.bool.isRequired,
+      user: PropTypes.shape({ _id: PropTypes.string }),
+    };
+  }
+
+  static get defaultProps() {
+    return {
+      user: null,
     };
   }
 
   handleBoardCreate({ name }) {
-    Boards.insert({ name });
+    Meteor.call('boards.insert', name);
     this.setState({ showCreateDialog: false });
   }
 
@@ -37,7 +44,7 @@ class BoardList extends React.Component {
   }
 
   render() {
-    const { boards, listLoading } = this.props;
+    const { boards, listLoading, user } = this.props;
     const { showCreateDialog } = this.state;
 
     let boardList;
@@ -82,7 +89,7 @@ class BoardList extends React.Component {
     return (
       <div>
         {boardList}
-        {listLoading ? '' : <Button onClick={makeBoard}>Create New Board</Button>}
+        {listLoading || !user ? '' : <Button onClick={makeBoard}>Create New Board</Button>}
         <CreateBoard
           show={showCreateDialog}
           onCreate={handleBoardCreate}
@@ -95,9 +102,11 @@ class BoardList extends React.Component {
 
 export default withTracker(() => {
   const handle = Meteor.subscribe('boards');
+  const user = Meteor.user();
 
   return {
     listLoading: !handle.ready(),
     boards: Boards.find({}).fetch(),
+    user,
   };
 })(BoardList);

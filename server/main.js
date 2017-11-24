@@ -3,6 +3,8 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Boards } from '../imports/api/boards';
 import { Stickies } from '../imports/api/stickies';
 
+import './accountConfig';
+
 Meteor.publish('boards', () => (
   Boards.find()
 ));

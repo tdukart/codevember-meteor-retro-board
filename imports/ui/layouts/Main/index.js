@@ -5,6 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import Board from '../Board';
 import BoardList from '../BoardList';
+import AccountsUiWrapper from '../../components/AccountsUiWrapper';
 
 import { styles } from './style.scss';
 
@@ -20,6 +21,11 @@ const MainLayout = () => (
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
+      <Nav pullRight>
+        <Navbar.Text>
+          <AccountsUiWrapper />
+        </Navbar.Text>
+      </Nav>
       <Navbar.Collapse>
         <Nav>
           <LinkContainer to="/boards" exact>

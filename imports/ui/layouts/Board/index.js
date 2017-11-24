@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { capitalize, filter } from 'lodash';
+import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import { Boards } from '../../../api/boards';
@@ -26,12 +27,7 @@ class Board extends React.Component {
 
   onStickyCreate({ body, columnId }) {
     const { boardId } = this.props.match.params;
-    Stickies.insert({
-      body,
-      columnId,
-      boardId,
-      color: 'yellow',
-    });
+    Meteor.call('stickies.insert', { body, columnId, boardId });
     this.setState({
       showStickyDialog: false,
     });
@@ -44,7 +40,12 @@ class Board extends React.Component {
   }
 
   render() {
-    const { name, stickies, stickiesLoading } = this.props;
+    const {
+      name,
+      stickies,
+      stickiesLoading,
+      user,
+    } = this.props;
     const { showStickyDialog } = this.state;
 
     const onStickyCreate = stickyData => this.onStickyCreate({
@@ -58,6 +59,7 @@ class Board extends React.Component {
         <BoardSection
           title={capitalize(columnId)}
           stickies={filter(stickies, { columnId })}
+          showAdd={!!user}
           onCreateSticky={() => {
             this.setState({
               activeColumn: columnId,
@@ -96,12 +98,14 @@ Board.propTypes = {
   stickies: PropTypes.arrayOf(PropTypes.any).isRequired,
   match: ReactRouterPropTypes.match.isRequired, // eslint-disable-line react/no-typos
   stickiesLoading: PropTypes.bool.isRequired,
+  user: PropTypes.shape({ _id: PropTypes.string }).isRequired,
 };
 
 export default withTracker(({ match }) => {
   const { boardId } = match.params;
   const boards = Boards.find(boardId).fetch();
   const board = boards.length > 0 ? boards[0] : {};
+  const user = Meteor.user();
 
   const stickyHandle = Meteor.subscribe('stickies.inBoard', boardId);
 
@@ -111,5 +115,6 @@ export default withTracker(({ match }) => {
     stickiesLoading: !(stickyHandle.ready()),
     name: board.name || '',
     stickies,
+    user,
   };
 })(Board);

@@ -7,7 +7,10 @@ import Sticky from '../Sticky';
 import { styles } from './style.scss';
 
 const BoardSection = ({
-  title, stickies, onCreateSticky,
+  title,
+  stickies,
+  onCreateSticky,
+  showAdd,
 }) => {
   const stickyList = stickies.map(stickyData => (
     <Sticky
@@ -28,9 +31,11 @@ const BoardSection = ({
 
   const panelFooter = (
     <div>
-      <Button onClick={addSticky} bsStyle="success">
-        <Glyphicon glyph="plus" />
-      </Button>
+      {showAdd ?
+        <Button onClick={addSticky} bsStyle="success">
+          <Glyphicon glyph="plus" />
+        </Button>
+        : ''}
     </div>
   );
 
@@ -52,6 +57,7 @@ BoardSection.propTypes = {
     color: PropTypes.string,
   })).isRequired,
   onCreateSticky: PropTypes.func.isRequired,
+  showAdd: PropTypes.bool.isRequired,
 };
 
 export default BoardSection;
