@@ -22,7 +22,7 @@ Stickies.schema = new SimpleSchema({
 });
 
 Meteor.methods({
-  'stickies.insert'({
+  'stickies.insert': function stickiesInsert({
     body,
     columnId,
     boardId,
@@ -46,7 +46,7 @@ Meteor.methods({
       creator: this.userId,
     });
   },
-  'stickies.update'(_id, { body }) {
+  'stickies.update': function stickiesUpdate(_id, { body }) {
     check(_id, String);
     check(body, String);
 

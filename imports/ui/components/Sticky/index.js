@@ -55,7 +55,7 @@ class Sticky extends React.Component {
         {body}
         <div className={styles.footer}>
           <Button onClick={startStickyEdit} bsSize="xsmall" bsStyle="default">
-            <Glyphicon glyph="pencil"/>
+            <Glyphicon glyph="pencil" />
           </Button>
         </div>
         <CreateSticky
@@ -66,7 +66,6 @@ class Sticky extends React.Component {
         />
       </div>
     );
-
   }
 }
 

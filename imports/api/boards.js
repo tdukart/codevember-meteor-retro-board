@@ -26,7 +26,7 @@ Boards.helpers({
 });
 
 Meteor.methods({
-  'boards.insert'(name) {
+  'boards.insert': function boardsInsert(name) {
     check(name, String);
 
     // Make sure the user is logged in before inserting a task
