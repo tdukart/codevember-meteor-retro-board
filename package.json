@@ -4,7 +4,8 @@
   "scripts": {
     "start": "meteor run",
     "lint": "eslint server private imports client",
-    "lint-fix": "eslint --fix server private imports client"
+    "lint-fix": "eslint --fix server private imports client",
+    "dev-deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy mn-stickies.meteorapp.com --settings development.json"
   },
   "dependencies": {
     "@tdukart/react-redux-meteor-tdukart": "^4.6.2",
