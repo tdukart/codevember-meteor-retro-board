@@ -25,22 +25,28 @@ Boards.helpers({
   },
 });
 
-Meteor.methods({
-  'boards.insert': function boardsInsert(name) {
-    check(name, String);
+if (Meteor.isServer) {
+  Meteor.methods({
+    'boards.insert': function boardsInsert(name) {
+      check(name, String);
 
-    // Make sure the user is logged in before inserting a task
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
-    }
+      // Make sure the user is logged in before inserting a task
+      if (!this.userId) {
+        throw new Meteor.Error('not-authorized');
+      }
 
-    Boards.insert({
-      name,
-      createdAt: Date.now(),
-      owner: this.userId,
-    });
-  },
-});
+      Boards.insert({
+        name,
+        createdAt: Date.now(),
+        owner: this.userId,
+      });
+    },
+  });
+
+  Meteor.publish('boards', () => (
+    Boards.find()
+  ));
+}
 
 // eslint-disable-next-line import/prefer-default-export
 export { Boards };
