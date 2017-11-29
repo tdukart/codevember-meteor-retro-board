@@ -58,8 +58,10 @@ if (Meteor.isServer) {
       }
 
       Stickies.update(_id, {
-        body,
-        updater: this.userId,
+        $set: {
+          body,
+          updater: this.userId,
+        },
       });
     },
   });

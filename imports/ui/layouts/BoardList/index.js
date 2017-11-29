@@ -52,6 +52,12 @@ class BoardList extends React.Component {
       boardList = (
         <Spinner />
       );
+    } else if (!user) {
+      return (
+        <Alert bsStyle="info">
+          Please log in above.
+        </Alert>
+      );
     } else if (boards.length === 0) {
       boardList = (
         <Alert bsStyle="info">
