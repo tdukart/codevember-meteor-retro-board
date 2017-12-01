@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Glyphicon } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
+import emoji from 'node-emoji';
 
 import CreateSticky from '../CreateSticky';
 
@@ -52,7 +53,7 @@ class Sticky extends React.Component {
 
     return (
       <div className={cssClasses.join(' ')}>
-        {body}
+        {emoji.emojify(body)}
         <div className={styles.footer}>
           <Button onClick={startStickyEdit} bsSize="xsmall" bsStyle="default">
             <Glyphicon glyph="pencil" />
