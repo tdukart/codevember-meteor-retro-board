@@ -74,9 +74,10 @@ class BoardList extends React.Component {
       ));
 
       const panelHeader = (
-        <h3>
-          Boards
-        </h3>
+        <div>
+          <h3>Boards</h3>
+          <p>Click on a board below to load it.</p>
+        </div>
       );
 
       boardList = (
