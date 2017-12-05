@@ -27,11 +27,13 @@ if (Meteor.isServer) {
   Meteor.methods({
     'stickies.insert': function stickiesInsert({
       body,
+      notes,
       columnId,
       boardId,
       color = 'yellow',
     }) {
       check(body, String);
+      check(notes, String);
       check(columnId, String);
       check(boardId, String);
       check(color, String);
@@ -43,15 +45,17 @@ if (Meteor.isServer) {
 
       Stickies.insert({
         body,
+        notes,
         columnId,
         boardId,
         color,
         creator: this.userId,
       });
     },
-    'stickies.update': function stickiesUpdate(_id, { body }) {
+    'stickies.update': function stickiesUpdate(_id, { body, notes }) {
       check(_id, String);
       check(body, String);
+      check(notes, String);
 
       if (!this.userId) {
         throw new Meteor.Error('not-authorized');
@@ -60,6 +64,7 @@ if (Meteor.isServer) {
       Stickies.update(_id, {
         $set: {
           body,
+          notes,
           updater: this.userId,
         },
       });
