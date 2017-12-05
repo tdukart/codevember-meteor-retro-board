@@ -17,12 +17,17 @@ class CreateSticky extends React.Component {
       onCreate: PropTypes.func.isRequired,
       onClose: PropTypes.func.isRequired,
       body: PropTypes.string.isRequired,
+      notes: PropTypes.string.isRequired,
+      showNotes: PropTypes.bool.isRequired,
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.show === true && this.props.show === false) {
-      this.setState({ body: nextProps.body });
+      this.setState({
+        body: nextProps.body,
+        notes: nextProps.notes,
+      });
     }
   }
 
@@ -34,8 +39,8 @@ class CreateSticky extends React.Component {
 
   handleSave(event) {
     event.preventDefault();
-    const { body } = this.state;
-    this.props.onCreate({ body });
+    const { body, notes } = this.state;
+    this.props.onCreate({ body, notes });
   }
 
   handleClose() {
@@ -43,9 +48,10 @@ class CreateSticky extends React.Component {
   }
 
   render() {
-    const { show } = this.props;
-    const { body } = this.state;
+    const { show, showNotes } = this.props;
+    const { body, notes } = this.state;
     const handleBodyChange = event => this.handleChange('body', event);
+    const handleNotesChange = event => this.handleChange('notes', event);
     const handleSave = event => this.handleSave(event);
     const handleClose = event => this.handleClose(event);
 
@@ -59,12 +65,23 @@ class CreateSticky extends React.Component {
             <FormGroup>
               <ControlLabel>Sticky Text</ControlLabel>
               <FormControl
-                type="text"
+                componentClass="textarea"
                 value={body}
                 placeholder="Enter Text"
                 onChange={handleBodyChange}
               />
             </FormGroup>
+            {showNotes ?
+              <FormGroup>
+                <ControlLabel>Notes/Action Items</ControlLabel>
+                <FormControl
+                  componentClass="textarea"
+                  placeholder="Enter text"
+                  value={notes}
+                  onChange={handleNotesChange}
+                />
+              </FormGroup>
+              : null}
           </Form>
         </Modal.Body>
         <Modal.Footer>

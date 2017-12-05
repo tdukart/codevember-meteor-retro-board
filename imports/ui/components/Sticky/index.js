@@ -20,6 +20,7 @@ class Sticky extends React.Component {
     return {
       _id: PropTypes.string.isRequired,
       body: PropTypes.string.isRequired,
+      notes: PropTypes.string.isRequired,
       color: PropTypes.string,
     };
   }
@@ -31,7 +32,12 @@ class Sticky extends React.Component {
   }
 
   render() {
-    const { body, color, _id } = this.props;
+    const {
+      body,
+      notes,
+      color,
+      _id,
+    } = this.props;
     const { showStickyDialog } = this.state;
     const cssClasses = [styles.sticky];
     if (color !== '') {
@@ -53,7 +59,10 @@ class Sticky extends React.Component {
 
     return (
       <div className={cssClasses.join(' ')}>
-        {emoji.emojify(body)}
+        <p>{emoji.emojify(body)}</p>
+        <p className={styles.notes}>
+          {emoji.emojify(notes)}
+        </p>
         <div className={styles.footer}>
           <Button onClick={startStickyEdit} bsSize="xsmall" bsStyle="default">
             <Glyphicon glyph="pencil" />
@@ -64,6 +73,8 @@ class Sticky extends React.Component {
           onCreate={onStickyCreate}
           onClose={onStickyDialogClose}
           body={body}
+          notes={notes}
+          showNotes
         />
       </div>
     );

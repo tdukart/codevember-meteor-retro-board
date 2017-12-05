@@ -17,6 +17,7 @@ const BoardSection = ({
       key={`sticky-${stickyData._id}`}
       _id={stickyData._id}
       body={stickyData.body}
+      notes={stickyData.notes}
       color={stickyData.color}
     />
   ));
@@ -54,6 +55,7 @@ BoardSection.propTypes = {
   stickies: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
+    notes: PropTypes.string.isRequired,
     color: PropTypes.string,
   })).isRequired,
   onCreateSticky: PropTypes.func.isRequired,
