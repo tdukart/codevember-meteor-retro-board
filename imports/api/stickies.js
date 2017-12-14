@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Boards } from './boards';
 
@@ -33,7 +33,7 @@ if (Meteor.isServer) {
       color = 'yellow',
     }) {
       check(body, String);
-      check(notes, String);
+      check(notes, Match.Optional(String));
       check(columnId, String);
       check(boardId, String);
       check(color, String);
