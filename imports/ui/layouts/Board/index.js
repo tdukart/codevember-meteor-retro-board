@@ -9,9 +9,10 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Boards } from '../../../api/boards';
 import { Stickies } from '../../../api/stickies';
 
-import BoardSection from '../../components/BoardSection/index';
+import BoardSection from '../../components/BoardSection';
 import Spinner from '../../components/Spinner';
 import CreateSticky from '../../components/CreateSticky';
+import BoardWikiMarkup from '../../components/BoardWikiMarkup'
 
 import columns from '../../util/columns';
 
@@ -80,6 +81,9 @@ class Board extends React.Component {
           </Row>
           <Row>
             {stickiesLoading ? <Spinner /> : sections}
+          </Row>
+          <Row>
+            {stickiesLoading ? '' : <BoardWikiMarkup stickies={stickies} />}
           </Row>
         </Grid>
         <CreateSticky
