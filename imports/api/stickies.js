@@ -33,7 +33,7 @@ if (Meteor.isServer) {
       color = 'yellow',
     }) {
       check(body, String);
-      check(notes, Match.Optional(String));
+      check(notes, Match.Maybe(String));
       check(columnId, String);
       check(boardId, String);
       check(color, String);
@@ -55,7 +55,7 @@ if (Meteor.isServer) {
     'stickies.update': function stickiesUpdate(_id, { body, notes }) {
       check(_id, String);
       check(body, String);
-      check(notes, String);
+      check(notes, Match.Maybe(String));
 
       if (!this.userId) {
         throw new Meteor.Error('not-authorized');
