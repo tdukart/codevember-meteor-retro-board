@@ -21,6 +21,8 @@ class Sticky extends React.Component {
       _id: PropTypes.string.isRequired,
       body: PropTypes.string.isRequired,
       notes: PropTypes.string.isRequired,
+      creator: PropTypes.string.isRequired,
+      plusOnes: PropTypes.arrayOf(PropTypes.string).isRequired,
       color: PropTypes.string,
     };
   }
@@ -36,9 +38,13 @@ class Sticky extends React.Component {
       body,
       notes,
       color,
+      creator,
+      plusOnes,
       _id,
     } = this.props;
     const { showStickyDialog } = this.state;
+    const userId = Meteor.userId();
+
     const cssClasses = [styles.sticky];
     if (color !== '') {
       cssClasses.push(styles[color]);
@@ -57,6 +63,36 @@ class Sticky extends React.Component {
       this.setState({ showStickyDialog: false });
     };
 
+    const onStickyAddPlusOne = () => {
+      Meteor.call('stickies.addPlusOne', _id);
+    };
+
+    const onStickyRemovePlusOne = () => {
+      Meteor.call('stickies.removePlusOne', _id);
+    };
+
+    let plusOnesButton;
+    if (userId === creator) {
+      // You can't +1 yourself, young one.
+      plusOnesButton = (
+        <Button disabled bsSize="xsmall" bsStyle="default">
+          +1
+        </Button>
+      );
+    } else if (plusOnes.indexOf(userId) !== -1) {
+      plusOnesButton = (
+        <Button active bsStyle="default" bsSize="xsmall" onClick={onStickyRemovePlusOne}>
+          +1
+        </Button>
+      );
+    } else {
+      plusOnesButton = (
+        <Button bsStyle="default" bsSize="xsmall" onClick={onStickyAddPlusOne}>
+          +1
+        </Button>
+      );
+    }
+
     return (
       <div className={cssClasses.join(' ')}>
         <p>{emoji.emojify(body)}</p>
@@ -67,6 +103,7 @@ class Sticky extends React.Component {
           <Button onClick={startStickyEdit} bsSize="xsmall" bsStyle="default">
             <Glyphicon glyph="pencil" />
           </Button>
+          {plusOnesButton} ({plusOnes.length})
         </div>
         <CreateSticky
           show={showStickyDialog}
