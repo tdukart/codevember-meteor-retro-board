@@ -9,6 +9,7 @@ import { Boards } from '../../../api/boards';
 
 import CreateBoard from '../../components/CreateBoard';
 import Spinner from '../../components/Spinner';
+import AccountsUiWrapper from '../../components/AccountsUiWrapper';
 
 class BoardList extends React.Component {
   constructor(props) {
@@ -53,11 +54,15 @@ class BoardList extends React.Component {
         <Spinner />
       );
     } else if (!user) {
-      return (
-        <Alert bsStyle="info">
-          Please log in above.
-        </Alert>
-      );
+      if (!user) {
+        const panelHeader = <h2>Login Required</h2>;
+
+        return (
+          <Panel header={panelHeader} bsStyle="info">
+            <AccountsUiWrapper />
+          </Panel>
+        );
+      }
     } else if (boards.length === 0) {
       boardList = (
         <Alert bsStyle="info">

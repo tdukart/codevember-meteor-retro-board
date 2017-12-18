@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Panel } from 'react-bootstrap';
 import { capitalize, filter } from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -12,7 +12,8 @@ import { Stickies } from '../../../api/stickies';
 import BoardSection from '../../components/BoardSection';
 import Spinner from '../../components/Spinner';
 import CreateSticky from '../../components/CreateSticky';
-import BoardWikiMarkup from '../../components/BoardWikiMarkup'
+import BoardWikiMarkup from '../../components/BoardWikiMarkup';
+import AccountsUiWrapper from '../../components/AccountsUiWrapper';
 
 import columns from '../../util/columns';
 
@@ -54,6 +55,16 @@ class Board extends React.Component {
       ...stickyData,
     });
     const onStickyDialogClose = () => this.onStickyDialogClose();
+
+    if (!user) {
+      const panelHeader = <h2>Login Required</h2>;
+
+      return (
+        <Panel header={panelHeader} bsStyle="info">
+          <AccountsUiWrapper />
+        </Panel>
+      );
+    }
 
     const sections = columns.map(columnId => (
       <Col xs={12} sm={6} md={3} key={columnId}>
