@@ -1,12 +1,20 @@
 import { Meteor } from 'meteor/meteor';
 import { ServiceConfiguration } from 'meteor/service-configuration';
 
+let { google } = Meteor.settings;
+if (!google) {
+  google = {
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    secret: process.env.GOOGLE_SECRET,
+  };
+}
+
 ServiceConfiguration.configurations.upsert({
   service: 'google',
 }, {
   $set: {
-    clientId: Meteor.settings.google.clientId,
+    clientId: google.clientId,
     loginStyle: 'popup',
-    secret: Meteor.settings.google.secret,
+    secret: google.secret,
   },
 });
