@@ -19,6 +19,8 @@ const BoardSection = ({
       body={stickyData.body}
       notes={stickyData.notes}
       color={stickyData.color}
+      plusOnes={stickyData.plusOnes || []}
+      creator={stickyData.creator}
     />
   ));
 

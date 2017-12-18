@@ -69,6 +69,57 @@ if (Meteor.isServer) {
         },
       });
     },
+    'stickies.addPlusOne': function stickiesAddPlusOne(_id) {
+      check(_id, String);
+
+      if (!this.userId) {
+        throw new Meteor.Error('not-authorized');
+      }
+
+      const sticky = Stickies.findOne(_id);
+      if (!sticky) {
+        throw new Meteor.Error('not-found');
+      }
+
+      let { plusOnes } = sticky;
+      if (!plusOnes) {
+        plusOnes = [];
+      }
+      if (plusOnes.indexOf(this.userId) === -1) {
+        plusOnes.push(this.userId);
+        Stickies.update(_id, {
+          $set: {
+            plusOnes,
+          },
+        });
+      }
+    },
+    'stickies.removePlusOne': function stickiesRemovePlusOne(_id) {
+      check(_id, String);
+
+      if (!this.userId) {
+        throw new Meteor.Error('not-authorized');
+      }
+
+      const sticky = Stickies.findOne(_id);
+      if (!sticky) {
+        throw new Meteor.Error('not-found');
+      }
+
+      let { plusOnes } = sticky;
+      if (!plusOnes) {
+        plusOnes = [];
+      }
+      const myPlusOneIdx = plusOnes.indexOf(this.userId);
+      if (myPlusOneIdx !== -1) {
+        plusOnes.splice(myPlusOneIdx, 1);
+        Stickies.update(_id, {
+          $set: {
+            plusOnes,
+          },
+        });
+      }
+    },
   });
 
 
