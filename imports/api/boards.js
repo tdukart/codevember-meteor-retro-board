@@ -1,9 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Mongo } from 'meteor/mongo';
+import { Roles } from 'meteor/alanning:roles';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 import { Stickies } from './stickies';
+import { PERMISSION_CREATE_BOARD } from '../roles';
 
 // TODO: https://guide.meteor.com/collections.html#collection-helpers
 
@@ -30,8 +32,7 @@ if (Meteor.isServer) {
     'boards.insert': function boardsInsert(name) {
       check(name, String);
 
-      // Make sure the user is logged in before inserting a task
-      if (!this.userId) {
+      if (!this.userId || !Roles.userIsInRole(this.userId, PERMISSION_CREATE_BOARD)) {
         throw new Meteor.Error('not-authorized');
       }
 
