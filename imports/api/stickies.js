@@ -45,7 +45,7 @@ if (Meteor.isServer) {
 
       // Ensure that the board exists, and is either Open or has no status
       // (for backwards compatibility).
-      const board = Boards.find(boardId);
+      const board = Boards.findOne(boardId);
       if (!board) {
         throw new Meteor.Error('board-not-found');
       }
@@ -77,8 +77,8 @@ if (Meteor.isServer) {
         updater: this.userId,
       };
 
-      const sticky = Stickies.find(_id);
-      const board = Boards.find(sticky.boardId);
+      const sticky = Stickies.findOne(_id);
+      const board = Boards.findOne(sticky.boardId);
       if (!board.status || board.status === 'open') {
         $set.body = body;
       }
@@ -99,8 +99,8 @@ if (Meteor.isServer) {
         throw new Meteor.Error('not-found');
       }
 
-      const board = Boards.find(sticky.boardId);
-      if (!board.status || (board.status !== 'open' && board.status !== 'discussion')) {
+      const board = Boards.findOne(sticky.boardId);
+      if (!board.status || (board.status !== 'open' && board.status !== 'discuss')) {
         throw new Meteor.Error('board-not-open');
       }
 
@@ -129,8 +129,8 @@ if (Meteor.isServer) {
         throw new Meteor.Error('not-found');
       }
 
-      const board = Boards.find(sticky.boardId);
-      if (!board.status || (board.status !== 'open' && board.status !== 'discussion')) {
+      const board = Boards.findOne(sticky.boardId);
+      if (!board.status || (board.status !== 'open' && board.status !== 'discuss')) {
         throw new Meteor.Error('board-not-open');
       }
 

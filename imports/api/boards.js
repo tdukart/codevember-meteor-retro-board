@@ -95,7 +95,7 @@ if (Meteor.isServer) {
         throw new Meteor.Error('not-authorized');
       }
 
-      const board = Boards.find(_id);
+      const board = Boards.findOne(_id);
       if (!board) {
         throw new Meteor.Error('not-found');
       }

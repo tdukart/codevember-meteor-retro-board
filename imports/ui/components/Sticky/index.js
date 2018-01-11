@@ -24,6 +24,9 @@ class Sticky extends React.Component {
       creator: PropTypes.string.isRequired,
       plusOnes: PropTypes.arrayOf(PropTypes.string).isRequired,
       color: PropTypes.string,
+      bodyReadOnly: PropTypes.bool.isRequired,
+      notesReadOnly: PropTypes.bool.isRequired,
+      canPlusOne: PropTypes.bool.isRequired,
     };
   }
 
@@ -40,6 +43,9 @@ class Sticky extends React.Component {
       color,
       creator,
       plusOnes,
+      bodyReadOnly,
+      notesReadOnly,
+      canPlusOne,
       _id,
     } = this.props;
     const { showStickyDialog } = this.state;
@@ -72,7 +78,7 @@ class Sticky extends React.Component {
     };
 
     let plusOnesButton;
-    if (userId === creator) {
+    if (userId === creator || !canPlusOne) {
       // You can't +1 yourself, young one.
       plusOnesButton = (
         <Button disabled bsSize="xsmall" bsStyle="default">
@@ -111,6 +117,8 @@ class Sticky extends React.Component {
           onClose={onStickyDialogClose}
           body={body}
           notes={notes}
+          bodyReadOnly={bodyReadOnly}
+          notesReadOnly={notesReadOnly}
           showNotes
         />
       </div>

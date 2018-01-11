@@ -19,6 +19,8 @@ class CreateSticky extends React.Component {
       body: PropTypes.string.isRequired,
       notes: PropTypes.string.isRequired,
       showNotes: PropTypes.bool.isRequired,
+      bodyReadOnly: PropTypes.bool.isRequired,
+      notesReadOnly: PropTypes.bool.isRequired,
     };
   }
 
@@ -48,7 +50,7 @@ class CreateSticky extends React.Component {
   }
 
   render() {
-    const { show, showNotes } = this.props;
+    const { show, showNotes, bodyReadOnly, notesReadOnly } = this.props;
     const { body, notes } = this.state;
     const handleBodyChange = event => this.handleChange('body', event);
     const handleNotesChange = event => this.handleChange('notes', event);
@@ -69,6 +71,7 @@ class CreateSticky extends React.Component {
                 value={body}
                 placeholder="Enter Text"
                 onChange={handleBodyChange}
+                readOnly={bodyReadOnly}
               />
             </FormGroup>
             {showNotes ?
@@ -79,6 +82,7 @@ class CreateSticky extends React.Component {
                   placeholder="Enter text"
                   value={notes}
                   onChange={handleNotesChange}
+                  readOnly={notesReadOnly}
                 />
               </FormGroup>
               : null}

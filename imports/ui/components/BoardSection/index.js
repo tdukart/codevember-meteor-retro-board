@@ -11,6 +11,9 @@ const BoardSection = ({
   stickies,
   onCreateSticky,
   showAdd,
+  stickyBodyReadOnly,
+  stickyNotesReadOnly,
+  canPlusOne,
 }) => {
   const stickyList = stickies.map(stickyData => (
     <Sticky
@@ -21,6 +24,9 @@ const BoardSection = ({
       color={stickyData.color}
       plusOnes={stickyData.plusOnes || []}
       creator={stickyData.creator}
+      bodyReadOnly={stickyBodyReadOnly}
+      notesReadOnly={stickyNotesReadOnly}
+      canPlusOne={canPlusOne}
     />
   ));
 
@@ -62,6 +68,9 @@ BoardSection.propTypes = {
   })).isRequired,
   onCreateSticky: PropTypes.func.isRequired,
   showAdd: PropTypes.bool.isRequired,
+  stickyBodyReadOnly: PropTypes.bool.isRequired,
+  stickyNotesReadOnly: PropTypes.bool.isRequired,
+  canPlusOne: PropTypes.bool.isRequired,
 };
 
 export default BoardSection;

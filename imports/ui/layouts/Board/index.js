@@ -77,6 +77,9 @@ class Board extends React.Component {
           title={capitalize(columnId)}
           stickies={filter(stickies, { columnId })}
           showAdd={user && status === 'open'}
+          stickyBodyReadOnly={status !== 'open'}
+          stickyNotesReadOnly={status !== 'discuss'}
+          canPlusOne={status==='open'||status==='discuss'}
           onCreateSticky={() => {
             this.setState({
               activeColumn: columnId,
