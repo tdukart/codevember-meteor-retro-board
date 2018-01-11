@@ -43,6 +43,17 @@ if (Meteor.isServer) {
         throw new Meteor.Error('not-authorized');
       }
 
+      // Ensure that the board exists, and is either Open or has no status
+      // (for backwards compatibility).
+      const board = Boards.find(boardId);
+      if (!board) {
+        throw new Meteor.Error('board-not-found');
+      }
+      if (board.status && board.status !== 'open') {
+        // TODO: Should this be something other than an Error?
+        throw new Meteor.Error('board-not-open');
+      }
+
       Stickies.insert({
         body,
         notes,
@@ -54,19 +65,26 @@ if (Meteor.isServer) {
     },
     'stickies.update': function stickiesUpdate(_id, { body, notes }) {
       check(_id, String);
-      check(body, String);
+      check(body, Match.Maybe(String));
       check(notes, Match.Maybe(String));
 
       if (!this.userId) {
         throw new Meteor.Error('not-authorized');
       }
 
+      const $set = {
+        notes,
+        updater: this.userId,
+      };
+
+      const sticky = Stickies.find(_id);
+      const board = Boards.find(sticky.boardId);
+      if (!board.status || board.status === 'open') {
+        $set.body = body;
+      }
+
       Stickies.update(_id, {
-        $set: {
-          body,
-          notes,
-          updater: this.userId,
-        },
+        $set,
       });
     },
     'stickies.addPlusOne': function stickiesAddPlusOne(_id) {
@@ -79,6 +97,11 @@ if (Meteor.isServer) {
       const sticky = Stickies.findOne(_id);
       if (!sticky) {
         throw new Meteor.Error('not-found');
+      }
+
+      const board = Boards.find(sticky.boardId);
+      if (!board.status || (board.status !== 'open' && board.status !== 'discussion')) {
+        throw new Meteor.Error('board-not-open');
       }
 
       let { plusOnes } = sticky;
@@ -104,6 +127,11 @@ if (Meteor.isServer) {
       const sticky = Stickies.findOne(_id);
       if (!sticky) {
         throw new Meteor.Error('not-found');
+      }
+
+      const board = Boards.find(sticky.boardId);
+      if (!board.status || (board.status !== 'open' && board.status !== 'discussion')) {
+        throw new Meteor.Error('board-not-open');
       }
 
       let { plusOnes } = sticky;
