@@ -8,9 +8,11 @@
     "dev-deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy mn-stickies.meteorapp.com --settings development.json"
   },
   "dependencies": {
+    "@tdukart/linkify-urls": "^1.5.0",
     "@tdukart/react-redux-meteor-tdukart": "^4.6.2",
     "babel-runtime": "^6.26.0",
     "bootstrap": "^3.3.7",
+    "get-urls": "^7.2.0",
     "history": "^4.7.2",
     "lodash": "^4.17.4",
     "meteor-node-stubs": "^0.3.2",
@@ -28,7 +30,8 @@
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "truncate-url": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^4.10.0",
