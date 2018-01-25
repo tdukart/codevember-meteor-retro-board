@@ -19,6 +19,7 @@ const BoardSection = ({
       body={stickyData.body}
       notes={stickyData.notes}
       color={stickyData.color}
+      showAvatar={stickyData.showAvatar}
       plusOnes={stickyData.plusOnes || []}
       creator={stickyData.creator}
     />
@@ -58,6 +59,7 @@ BoardSection.propTypes = {
     _id: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
     notes: PropTypes.string.isRequired,
+    showAvatar: PropTypes.bool.isRequired,
     color: PropTypes.string,
   })).isRequired,
   onCreateSticky: PropTypes.func.isRequired,

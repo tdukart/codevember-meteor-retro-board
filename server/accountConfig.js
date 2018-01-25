@@ -8,5 +8,6 @@ ServiceConfiguration.configurations.upsert({
     clientId: Meteor.settings.google.clientId,
     loginStyle: 'popup',
     secret: Meteor.settings.google.secret,
+    hd: 'globe.com',
   },
 });

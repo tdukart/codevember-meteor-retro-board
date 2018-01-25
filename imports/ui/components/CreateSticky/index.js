@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, FormGroup, ControlLabel, FormControl, Button, Form } from 'react-bootstrap';
+import { Modal, FormGroup, ControlLabel, FormControl, Checkbox, Button, Form } from 'react-bootstrap';
+import { isEmpty } from 'lodash';
 
 class CreateSticky extends React.Component {
   constructor(props) {
@@ -8,6 +9,9 @@ class CreateSticky extends React.Component {
 
     this.state = {
       body: props.body,
+      notes: props.notes,
+      showAvatar: props.showAvatar,
+      showAvatarCheckbox: isEmpty(props.body),
     };
   }
 
@@ -18,6 +22,7 @@ class CreateSticky extends React.Component {
       onClose: PropTypes.func.isRequired,
       body: PropTypes.string.isRequired,
       notes: PropTypes.string.isRequired,
+      showAvatar: PropTypes.bool.isRequired,
       showNotes: PropTypes.bool.isRequired,
     };
   }
@@ -27,6 +32,8 @@ class CreateSticky extends React.Component {
       this.setState({
         body: nextProps.body,
         notes: nextProps.notes,
+        showAvatar: nextProps.showAvatar,
+        showAvatarCheckbox: isEmpty(nextProps.body),
       });
     }
   }
@@ -48,10 +55,11 @@ class CreateSticky extends React.Component {
   }
 
   render() {
-    const { show, showNotes } = this.props;
-    const { body, notes } = this.state;
+    const { show, showNotes, showAvatar } = this.props;
+    const { body, notes, showAvatarCheckbox } = this.state;
     const handleBodyChange = event => this.handleChange('body', event);
     const handleNotesChange = event => this.handleChange('notes', event);
+    const handleShowAvatarChange = event => this.handleChange('showAvatar', event);
     const handleSave = event => this.handleSave(event);
     const handleClose = event => this.handleClose(event);
 
@@ -80,6 +88,13 @@ class CreateSticky extends React.Component {
                   value={notes}
                   onChange={handleNotesChange}
                 />
+              </FormGroup>
+              : null}
+            {showAvatarCheckbox ?
+              <FormGroup>
+                <Checkbox checked={showAvatar}>
+                  Show My Avatar
+                </Checkbox>
               </FormGroup>
               : null}
           </Form>

@@ -25,6 +25,7 @@ class Sticky extends React.Component {
       body: PropTypes.string.isRequired,
       notes: PropTypes.string.isRequired,
       creator: PropTypes.string.isRequired,
+      showAvatar: PropTypes.bool.isRequired,
       plusOnes: PropTypes.arrayOf(PropTypes.string).isRequired,
       color: PropTypes.string,
     };
@@ -42,6 +43,7 @@ class Sticky extends React.Component {
       notes,
       color,
       creator,
+      showAvatar,
       plusOnes,
       _id,
     } = this.props;
@@ -109,6 +111,7 @@ class Sticky extends React.Component {
         <p dangerouslySetInnerHTML={{ __html: formattedBody }} />
         <p className={styles.notes} dangerouslySetInnerHTML={{ __html: formattedNotes }} />
         <div className={styles.footer}>
+          {showAvatar ? 'avatar' : ''}
           <Button onClick={startStickyEdit} bsSize="xsmall" bsStyle="default">
             <Glyphicon glyph="pencil" />
           </Button>
@@ -120,6 +123,7 @@ class Sticky extends React.Component {
           onClose={onStickyDialogClose}
           body={body}
           notes={notes}
+          showAvatar={showAvatar}
           showNotes
         />
       </div>

@@ -21,6 +21,9 @@ Stickies.schema = new SimpleSchema({
   body: {
     type: String,
   },
+  showAvatar: {
+    type: Boolean,
+  },
 });
 
 if (Meteor.isServer) {
@@ -31,12 +34,14 @@ if (Meteor.isServer) {
       columnId,
       boardId,
       color = 'yellow',
+      showAvatar = false,
     }) {
       check(body, String);
       check(notes, Match.Maybe(String));
       check(columnId, String);
       check(boardId, String);
       check(color, String);
+      check(showAvatar, Boolean);
 
       // Make sure the user is logged in before inserting a task
       if (!this.userId) {
@@ -50,6 +55,7 @@ if (Meteor.isServer) {
         boardId,
         color,
         creator: this.userId,
+        showAvatar,
       });
     },
     'stickies.update': function stickiesUpdate(_id, { body, notes }) {
@@ -122,6 +128,16 @@ if (Meteor.isServer) {
     },
   });
 
+  Meteor.publish('stickies.getCreator', (stickyId) => {
+    const sticky = Stickies.findOne(stickyId);
+    const options = {
+      fields: {
+        'services.google.name': 1,
+      },
+    };
+
+    return Meteor.users.findOne(sticky.creator, options);
+  });
 
   Meteor.publishComposite('stickies.inBoard', (boardId) => {
     new SimpleSchema({ boardId: { type: String } }).validate({ boardId });
