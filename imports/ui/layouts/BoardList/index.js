@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Button, Alert, Panel, ListGroup, ListGroupItem, Table } from 'react-bootstrap';
+import { Button, Alert, Panel, Table } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
@@ -13,30 +13,13 @@ import CreateBoard from '../../components/CreateBoard';
 import Spinner from '../../components/Spinner';
 import AccountsUiWrapper from '../../components/AccountsUiWrapper';
 
-import {styles} from './style.scss';
+import { styles } from './style.scss';
 
 class BoardList extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = { showCreateDialog: false };
-  }
-
-  static get propTypes() {
-    return {
-      boards: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-      })).isRequired,
-      listLoading: PropTypes.bool.isRequired,
-      user: PropTypes.shape({ _id: PropTypes.string }),
-    };
-  }
-
-  static get defaultProps() {
-    return {
-      user: null,
-    };
   }
 
   handleBoardCreate({ name }) {
@@ -123,6 +106,20 @@ class BoardList extends React.Component {
     );
   }
 }
+
+
+BoardList.propTypes = {
+  boards: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  })).isRequired,
+  listLoading: PropTypes.bool.isRequired,
+  user: PropTypes.shape({ _id: PropTypes.string }),
+};
+
+BoardList.defaultProps = {
+  user: null,
+};
 
 export default withTracker(() => {
   const handle = Meteor.subscribe('boards');

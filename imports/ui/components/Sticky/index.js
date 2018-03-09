@@ -19,23 +19,6 @@ class Sticky extends React.Component {
     };
   }
 
-  static get propTypes() {
-    return {
-      _id: PropTypes.string.isRequired,
-      body: PropTypes.string.isRequired,
-      notes: PropTypes.string.isRequired,
-      creator: PropTypes.string.isRequired,
-      plusOnes: PropTypes.arrayOf(PropTypes.string).isRequired,
-      color: PropTypes.string,
-    };
-  }
-
-  static get defaultProps() {
-    return {
-      color: '',
-    };
-  }
-
   render() {
     const {
       body,
@@ -106,8 +89,15 @@ class Sticky extends React.Component {
 
     return (
       <div className={cssClasses.join(' ')}>
-        <p dangerouslySetInnerHTML={{ __html: formattedBody }} />
-        <p className={styles.notes} dangerouslySetInnerHTML={{ __html: formattedNotes }} />
+        <p
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: formattedBody }}
+        />
+        <p
+          className={styles.notes}
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: formattedNotes }}
+        />
         <div className={styles.footer}>
           <Button onClick={startStickyEdit} bsSize="xsmall" bsStyle="default">
             <Glyphicon glyph="pencil" />
@@ -126,5 +116,18 @@ class Sticky extends React.Component {
     );
   }
 }
+
+Sticky.propTypes = {
+  _id: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  notes: PropTypes.string.isRequired,
+  creator: PropTypes.string.isRequired,
+  plusOnes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  color: PropTypes.string,
+};
+
+Sticky.defaultProps = {
+  color: '',
+};
 
 export default Sticky;

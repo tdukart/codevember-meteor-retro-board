@@ -11,17 +11,6 @@ class CreateSticky extends React.Component {
     };
   }
 
-  static get propTypes() {
-    return {
-      show: PropTypes.bool.isRequired,
-      onCreate: PropTypes.func.isRequired,
-      onClose: PropTypes.func.isRequired,
-      body: PropTypes.string.isRequired,
-      notes: PropTypes.string.isRequired,
-      showNotes: PropTypes.bool.isRequired,
-    };
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.show === true && this.props.show === false) {
       this.setState({
@@ -91,5 +80,14 @@ class CreateSticky extends React.Component {
     );
   }
 }
+
+CreateSticky.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onCreate: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  body: PropTypes.string.isRequired,
+  notes: PropTypes.string.isRequired,
+  showNotes: PropTypes.bool.isRequired,
+};
 
 export default CreateSticky;

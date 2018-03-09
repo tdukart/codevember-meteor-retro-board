@@ -11,14 +11,6 @@ class CreateBoard extends React.Component {
     };
   }
 
-  static get propTypes() {
-    return {
-      show: PropTypes.bool.isRequired,
-      onCreate: PropTypes.func.isRequired,
-      onClose: PropTypes.func.isRequired,
-    };
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.show === true && this.props.show === false) {
       this.setState({ name: '' });
@@ -73,5 +65,11 @@ class CreateBoard extends React.Component {
     );
   }
 }
+
+CreateBoard.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onCreate: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
 
 export default CreateBoard;
