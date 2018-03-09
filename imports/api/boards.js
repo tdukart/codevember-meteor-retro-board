@@ -43,9 +43,7 @@ if (Meteor.isServer) {
     },
   });
 
-  Meteor.publish('boards', () => (
-    Boards.find()
-  ));
+  Meteor.publish('boards', () => Boards.find({}, { sort: { createdAt: -1 } }));
 }
 
 // eslint-disable-next-line import/prefer-default-export
