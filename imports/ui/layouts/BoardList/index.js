@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Button, Alert, Panel, ListGroup, ListGroupItem, Table } from 'react-bootstrap';
+import { Button, Alert, Panel, Table } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 

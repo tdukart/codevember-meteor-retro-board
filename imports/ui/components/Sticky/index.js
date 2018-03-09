@@ -89,8 +89,15 @@ class Sticky extends React.Component {
 
     return (
       <div className={cssClasses.join(' ')}>
-        <p dangerouslySetInnerHTML={{ __html: formattedBody }} />
-        <p className={styles.notes} dangerouslySetInnerHTML={{ __html: formattedNotes }} />
+        <p
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: formattedBody }}
+        />
+        <p
+          className={styles.notes}
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: formattedNotes }}
+        />
         <div className={styles.footer}>
           <Button onClick={startStickyEdit} bsSize="xsmall" bsStyle="default">
             <Glyphicon glyph="pencil" />
