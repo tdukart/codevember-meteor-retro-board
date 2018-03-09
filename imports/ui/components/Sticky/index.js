@@ -19,23 +19,6 @@ class Sticky extends React.Component {
     };
   }
 
-  static get propTypes() {
-    return {
-      _id: PropTypes.string.isRequired,
-      body: PropTypes.string.isRequired,
-      notes: PropTypes.string.isRequired,
-      creator: PropTypes.string.isRequired,
-      plusOnes: PropTypes.arrayOf(PropTypes.string).isRequired,
-      color: PropTypes.string,
-    };
-  }
-
-  static get defaultProps() {
-    return {
-      color: '',
-    };
-  }
-
   render() {
     const {
       body,
@@ -126,5 +109,18 @@ class Sticky extends React.Component {
     );
   }
 }
+
+Sticky.propTypes = {
+  _id: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  notes: PropTypes.string.isRequired,
+  creator: PropTypes.string.isRequired,
+  plusOnes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  color: PropTypes.string,
+};
+
+Sticky.defaultProps = {
+  color: '',
+};
 
 export default Sticky;
