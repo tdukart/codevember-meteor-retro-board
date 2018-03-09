@@ -87,10 +87,13 @@ class BoardList extends React.Component {
         </LinkContainer>
       ));
 
+      const makeBoard = () => this.setState({ showCreateDialog: true });
+
       const panelHeader = (
         <div>
           <h3>Boards</h3>
           <p>Click on a board below to load it.</p>
+          {listLoading || !user ? '' : <Button onClick={makeBoard}>Create New Board</Button>}
         </div>
       );
 
@@ -105,14 +108,12 @@ class BoardList extends React.Component {
       );
     }
 
-    const makeBoard = () => this.setState({ showCreateDialog: true });
     const handleBoardCreate = newBoardProps => this.handleBoardCreate(newBoardProps);
     const handleBoardClose = newBoardProps => this.handleBoardCreateClose(newBoardProps);
 
     return (
       <div className={styles.boardList}>
         {boardList}
-        {listLoading || !user ? '' : <Button onClick={makeBoard}>Create New Board</Button>}
         <CreateBoard
           show={showCreateDialog}
           onCreate={handleBoardCreate}
