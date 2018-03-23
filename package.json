@@ -5,7 +5,7 @@
     "start": "meteor run",
     "lint": "eslint server private imports client",
     "lint-fix": "eslint --fix server private imports client",
-    "test": "SERVER_TEST_REPORTER=xunit XUNIT_FILE=$CIRCLE_TEST_REPORTS/mocha.xml meteor test --once --driver-package meteortesting:mocha --port 8030",
+    "test": "TEST_BROWSER_DRIVER=phantomjs SERVER_TEST_REPORTER=xunit XUNIT_FILE=$CIRCLE_TEST_REPORTS/mocha.xml meteor test --once --driver-package meteortesting:mocha",
     "local-test": "TEST_BROWSER_DRIVER=phantomjs TEST_WATCH=1 meteor test --driver-package meteortesting:mocha --port 8030",
     "dev-deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy mn-stickies.meteorapp.com --settings development.json"
   },
