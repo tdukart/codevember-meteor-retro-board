@@ -73,9 +73,21 @@ class Sticky extends React.Component {
       Meteor.call('stickies.removePlusOne', _id);
     };
 
-    const plusOneAddTooltip = <Tooltip id="plusOneAddTooltip">Add a +1 reaction</Tooltip>;
-    const plusOneRemoveTooltip = <Tooltip id="plusOneRemoveTooltip">Remove your +1 reaction</Tooltip>;
-    const plusOneOwnTooltip = <Tooltip id="plusOneOwnTooltip">This is your sticky; you can't +1 it</Tooltip>;
+    const plusOneAddTooltip = (
+      <Tooltip id="plusOneAddTooltip">
+        Add a +1 reaction
+      </Tooltip>
+    );
+    const plusOneRemoveTooltip = (
+      <Tooltip id="plusOneRemoveTooltip">
+        Remove your +1 reaction
+      </Tooltip>
+    );
+    const plusOneOwnTooltip = (
+      <Tooltip id="plusOneOwnTooltip">
+        This is your sticky; you can&apos;t +1 it
+      </Tooltip>
+    );
 
     let plusOnesButton;
     if (userId === creator) {

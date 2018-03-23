@@ -56,6 +56,31 @@ if (Meteor.isServer) {
       chai.assert.equal(stickyData.columnId, 'stop');
     });
 
+    it('allows action items to be added to a sticky', function () {
+      const sticky = Factory.create('sticky');
+      const notes = faker.lorem.paragraph();
+      Meteor.call('stickies.update', sticky._id, { body: sticky.body, notes });
+
+      const stickyData = Stickies.findOne(sticky._id);
+      chai.assert.equal(stickyData.notes, notes);
+    });
+
+    it('allows a user to add a plus one', function () {
+      const sticky = Factory.create('sticky');
+      Meteor.call('stickies.addPlusOne', sticky._id);
+
+      const stickyData = Stickies.findOne(sticky._id);
+      chai.assert.include(stickyData.plusOnes, user._id);
+    });
+
+    it('allows a user to remove a plus one', function () {
+      const sticky = Factory.create('sticky', { plusOnes: [user._id] });
+      Meteor.call('stickies.removePlusOne', sticky._id);
+
+      const stickyData = Stickies.findOne(sticky._id);
+      chai.assert.notInclude(stickyData.plusOnes, user._id);
+    });
+
     afterEach(function () {
       if (Meteor.userId.restore) {
         Meteor.userId.restore();

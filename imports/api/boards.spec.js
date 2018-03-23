@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 import { Factory } from 'meteor/dburles:factory';
 import { chai } from 'meteor/practicalmeteor:chai';
-import { stubs } from 'meteor/practicalmeteor:sinon';
+import { sinon } from 'meteor/practicalmeteor:sinon';
 
 import faker from 'faker';
 
