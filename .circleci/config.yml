@@ -61,7 +61,7 @@ jobs:
           command: meteor npm run lint
       - run:
           name: unit tests
-          command: meteor npm run test
+          command: mkdir ~/test-results; meteor npm run test
       - run:
           name: copy meteor bin to build cache
           command: |
@@ -85,5 +85,5 @@ jobs:
             - ./node_modules/
             - ~/.npm/
       - store_artifacts:
-          path: ./tests/coverage/unit-tests/
+          path: ~/test-results
           destination: unit-tests
