@@ -8,6 +8,7 @@ import truncateUrl from 'truncate-url';
 import linkifyUrls from '@tdukart/linkify-urls';
 
 import CreateSticky from '../CreateSticky';
+import MoveSticky from '../MoveSticky';
 
 import { styles } from './style.scss';
 
@@ -16,6 +17,7 @@ class Sticky extends React.Component {
     super(props);
     this.state = {
       showStickyDialog: false,
+      showMoveDialog: false,
     };
   }
 
@@ -23,12 +25,13 @@ class Sticky extends React.Component {
     const {
       body,
       notes,
+      columnId,
       color,
       creator,
       plusOnes,
       _id,
     } = this.props;
-    const { showStickyDialog } = this.state;
+    const { showStickyDialog, showMoveDialog } = this.state;
     const userId = Meteor.userId();
 
     const cssClasses = [styles.sticky];
@@ -40,6 +43,15 @@ class Sticky extends React.Component {
       this.setState({ showStickyDialog: true });
     };
 
+    const startStickyMove = () => {
+      this.setState({ showMoveDialog: true });
+    };
+
+    const onStickyMove = ({ columnId }) => {
+      Meteor.call('stickies.move', _id, { columnId });
+      this.setState({ showMoveDialog: false });
+    };
+
     const onStickyCreate = (stickyData) => {
       Meteor.call('stickies.update', _id, stickyData);
       this.setState({ showStickyDialog: false });
@@ -47,6 +59,10 @@ class Sticky extends React.Component {
 
     const onStickyDialogClose = () => {
       this.setState({ showStickyDialog: false });
+    };
+
+    const onMoveDialogClose = () => {
+      this.setState({ showMoveDialog: false });
     };
 
     const onStickyAddPlusOne = () => {
@@ -102,6 +118,9 @@ class Sticky extends React.Component {
           <Button onClick={startStickyEdit} bsSize="xsmall" bsStyle="default">
             <Glyphicon glyph="pencil" />
           </Button>
+          <Button onClick={startStickyMove} bsSize="xsmall" bsStyle="default">
+            <Glyphicon glyph="resize-horizontal" />
+          </Button>
           {plusOnesButton} ({plusOnes.length})
         </div>
         <CreateSticky
@@ -112,6 +131,12 @@ class Sticky extends React.Component {
           notes={notes}
           showNotes
         />
+        <MoveSticky
+          show={showMoveDialog}
+          onMove={onStickyMove}
+          onClose={onMoveDialogClose}
+          columnId={columnId}
+        />
       </div>
     );
   }
@@ -121,6 +146,7 @@ Sticky.propTypes = {
   _id: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   notes: PropTypes.string.isRequired,
+  columnId: PropTypes.string.isRequired,
   creator: PropTypes.string.isRequired,
   plusOnes: PropTypes.arrayOf(PropTypes.string).isRequired,
   color: PropTypes.string,
