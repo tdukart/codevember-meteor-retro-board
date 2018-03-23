@@ -47,8 +47,8 @@ class Sticky extends React.Component {
       this.setState({ showMoveDialog: true });
     };
 
-    const onStickyMove = ({ columnId }) => {
-      Meteor.call('stickies.move', _id, { columnId });
+    const onStickyMove = (stickyData) => {
+      Meteor.call('stickies.move', _id, stickyData);
       this.setState({ showMoveDialog: false });
     };
 

@@ -60,7 +60,12 @@ class MoveSticky extends React.Component {
           <Form onSubmit={handleSave}>
             <FormGroup>
               <ControlLabel>Column</ControlLabel>
-              <FormControl componentClass="select" placeholder="Column" onChange={handleColumnChange} value={columnId}>
+              <FormControl
+                componentClass="select"
+                placeholder="Column"
+                onChange={handleColumnChange}
+                value={columnId}
+              >
                 {columnOptions}
               </FormControl>
             </FormGroup>
