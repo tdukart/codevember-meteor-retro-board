@@ -26,7 +26,7 @@ jobs:
       - restore_cache:
           key: meteor-packages-{{ checksum ".meteor/versions" }}-{{ checksum ".circleci/config.yml" }}
       - restore_cache:
-        key: npm-packages-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
+          key: npm-packages-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
       - run:
           name: restore cached meteor bin
           command: |
