@@ -69,6 +69,21 @@ if (Meteor.isServer) {
         },
       });
     },
+    'stickies.move': function stickiesMove(_id, { columnId }) {
+      check(_id, String);
+      check(columnId, String);
+
+      if (!this.userId) {
+        throw new Meteor.Error('not-authorized');
+      }
+
+      Stickies.update(_id, {
+        $set: {
+          columnId,
+          updater: this.userId,
+        },
+      });
+    },
     'stickies.addPlusOne': function stickiesAddPlusOne(_id) {
       check(_id, String);
 

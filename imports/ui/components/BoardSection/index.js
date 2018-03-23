@@ -19,6 +19,7 @@ const BoardSection = ({
       body={stickyData.body}
       notes={stickyData.notes}
       color={stickyData.color}
+      columnId={stickyData.columnId}
       plusOnes={stickyData.plusOnes || []}
       creator={stickyData.creator}
     />
