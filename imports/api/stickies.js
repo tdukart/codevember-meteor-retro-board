@@ -38,8 +38,10 @@ if (Meteor.isServer) {
       check(boardId, String);
       check(color, String);
 
+      const userId = Meteor.userId();
+
       // Make sure the user is logged in before inserting a task
-      if (!this.userId) {
+      if (!userId) {
         throw new Meteor.Error('not-authorized');
       }
 
@@ -49,7 +51,7 @@ if (Meteor.isServer) {
         columnId,
         boardId,
         color,
-        creator: this.userId,
+        creator: userId,
       });
     },
     'stickies.update': function stickiesUpdate(_id, { body, notes }) {
@@ -57,7 +59,9 @@ if (Meteor.isServer) {
       check(body, String);
       check(notes, Match.Maybe(String));
 
-      if (!this.userId) {
+      const userId = Meteor.userId();
+
+      if (!userId) {
         throw new Meteor.Error('not-authorized');
       }
 
@@ -65,7 +69,7 @@ if (Meteor.isServer) {
         $set: {
           body,
           notes,
-          updater: this.userId,
+          updater: userId,
         },
       });
     },
@@ -73,21 +77,25 @@ if (Meteor.isServer) {
       check(_id, String);
       check(columnId, String);
 
-      if (!this.userId) {
+      const userId = Meteor.userId();
+
+      if (!userId) {
         throw new Meteor.Error('not-authorized');
       }
 
       Stickies.update(_id, {
         $set: {
           columnId,
-          updater: this.userId,
+          updater: userId,
         },
       });
     },
     'stickies.addPlusOne': function stickiesAddPlusOne(_id) {
       check(_id, String);
 
-      if (!this.userId) {
+      const userId = Meteor.userId();
+
+      if (!userId) {
         throw new Meteor.Error('not-authorized');
       }
 
@@ -100,8 +108,8 @@ if (Meteor.isServer) {
       if (!plusOnes) {
         plusOnes = [];
       }
-      if (plusOnes.indexOf(this.userId) === -1) {
-        plusOnes.push(this.userId);
+      if (plusOnes.indexOf(userId) === -1) {
+        plusOnes.push(userId);
         Stickies.update(_id, {
           $set: {
             plusOnes,
@@ -112,7 +120,9 @@ if (Meteor.isServer) {
     'stickies.removePlusOne': function stickiesRemovePlusOne(_id) {
       check(_id, String);
 
-      if (!this.userId) {
+      const userId = Meteor.userId();
+
+      if (!userId) {
         throw new Meteor.Error('not-authorized');
       }
 
@@ -125,7 +135,7 @@ if (Meteor.isServer) {
       if (!plusOnes) {
         plusOnes = [];
       }
-      const myPlusOneIdx = plusOnes.indexOf(this.userId);
+      const myPlusOneIdx = plusOnes.indexOf(userId);
       if (myPlusOneIdx !== -1) {
         plusOnes.splice(myPlusOneIdx, 1);
         Stickies.update(_id, {

@@ -5,6 +5,8 @@
     "start": "meteor run",
     "lint": "eslint server private imports client",
     "lint-fix": "eslint --fix server private imports client",
+    "test": "SERVER_TEST_REPORTER=xunit XUNIT_FILE=$CIRCLE_TEST_REPORTS/mocha.xml meteor test --once --driver-package meteortesting:mocha --port 8030",
+    "local-test": "TEST_BROWSER_DRIVER=phantomjs TEST_WATCH=1 meteor test --driver-package meteortesting:mocha --port 8030",
     "dev-deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy mn-stickies.meteorapp.com --settings development.json"
   },
   "dependencies": {
@@ -40,8 +42,11 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-meteor": "^4.1.4",
+    "eslint-plugin-mocha": "^4.12.1",
     "eslint-plugin-react": "^7.4.0",
-    "node-sass": "^4.6.0"
+    "faker": "^4.1.0",
+    "node-sass": "^4.6.0",
+    "phantomjs-prebuilt": "^2.1.16"
   },
   "cssModules": {
     "extensions": [

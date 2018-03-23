@@ -33,3 +33,8 @@ accounts-google@1.3.0
 service-configuration@1.0.11
 twbs:bootstrap
 msavin:mongol
+xolvio:cleaner
+dburles:factory
+meteortesting:mocha
+practicalmeteor:chai
+practicalmeteor:sinon
