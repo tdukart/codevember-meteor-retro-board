@@ -30,15 +30,17 @@ if (Meteor.isServer) {
     'boards.insert': function boardsInsert(name) {
       check(name, String);
 
+      const userId = Meteor.userId();
+
       // Make sure the user is logged in before inserting a task
-      if (!this.userId) {
+      if (!userId) {
         throw new Meteor.Error('not-authorized');
       }
 
-      Boards.insert({
+      return Boards.insert({
         name,
         createdAt: Date.now(),
-        owner: this.userId,
+        owner: userId,
       });
     },
   });
