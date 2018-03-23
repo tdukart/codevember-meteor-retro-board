@@ -1,7 +1,7 @@
 // eslint-ignore react/no-danger
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Glyphicon } from 'react-bootstrap';
+import { Button, Glyphicon, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import emoji from 'node-emoji';
 import truncateUrl from 'truncate-url';
@@ -73,25 +73,35 @@ class Sticky extends React.Component {
       Meteor.call('stickies.removePlusOne', _id);
     };
 
+    const plusOneAddTooltip = <Tooltip id="plusOneAddTooltip">Add a +1 reaction</Tooltip>;
+    const plusOneRemoveTooltip = <Tooltip id="plusOneRemoveTooltip">Remove your +1 reaction</Tooltip>;
+    const plusOneOwnTooltip = <Tooltip id="plusOneOwnTooltip">This is your sticky; you can't +1 it</Tooltip>;
+
     let plusOnesButton;
     if (userId === creator) {
       // You can't +1 yourself, young one.
       plusOnesButton = (
-        <Button disabled bsSize="xsmall" bsStyle="default">
-          +1
-        </Button>
+        <OverlayTrigger placement="bottom" overlay={plusOneOwnTooltip}>
+          <Button disabled bsSize="xsmall" bsStyle="default">
+            +1
+          </Button>
+        </OverlayTrigger>
       );
     } else if (plusOnes.indexOf(userId) !== -1) {
       plusOnesButton = (
-        <Button active bsStyle="default" bsSize="xsmall" onClick={onStickyRemovePlusOne}>
-          +1
-        </Button>
+        <OverlayTrigger placement="bottom" overlay={plusOneRemoveTooltip}>
+          <Button active bsStyle="default" bsSize="xsmall" onClick={onStickyRemovePlusOne}>
+            +1
+          </Button>
+        </OverlayTrigger>
       );
     } else {
       plusOnesButton = (
-        <Button bsStyle="default" bsSize="xsmall" onClick={onStickyAddPlusOne}>
-          +1
-        </Button>
+        <OverlayTrigger placement="bottom" overlay={plusOneAddTooltip}>
+          <Button bsStyle="default" bsSize="xsmall" onClick={onStickyAddPlusOne}>
+            +1
+          </Button>
+        </OverlayTrigger>
       );
     }
 
@@ -102,6 +112,9 @@ class Sticky extends React.Component {
 
     let formattedNotes = emoji.emojify(notes);
     formattedNotes = linkifyUrls(formattedNotes, { value: truncateUrlTo20, attributes: { target: '_blank' } });
+
+    const editTooltip = <Tooltip id="editTooltip">Edit sticky or add notes</Tooltip>;
+    const moveTooltip = <Tooltip id="moveTooltip">Move to new column</Tooltip>;
 
     return (
       <div className={cssClasses.join(' ')}>
@@ -115,12 +128,17 @@ class Sticky extends React.Component {
           dangerouslySetInnerHTML={{ __html: formattedNotes }}
         />
         <div className={styles.footer}>
-          <Button onClick={startStickyEdit} bsSize="xsmall" bsStyle="default">
-            <Glyphicon glyph="pencil" />
-          </Button>
-          <Button onClick={startStickyMove} bsSize="xsmall" bsStyle="default">
-            <Glyphicon glyph="resize-horizontal" />
-          </Button>
+          <OverlayTrigger placement="bottom" overlay={editTooltip}>
+            <Button onClick={startStickyEdit} bsSize="xsmall" bsStyle="default">
+              <Glyphicon glyph="pencil" />
+            </Button>
+          </OverlayTrigger>
+
+          <OverlayTrigger placement="bottom" overlay={moveTooltip}>
+            <Button onClick={startStickyMove} bsSize="xsmall" bsStyle="default">
+              <Glyphicon glyph="resize-horizontal" />
+            </Button>
+          </OverlayTrigger>
           {plusOnesButton} ({plusOnes.length})
         </div>
         <CreateSticky
