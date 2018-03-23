@@ -10,6 +10,7 @@
     "dev-deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy mn-stickies.meteorapp.com --settings development.json"
   },
   "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.42",
     "@tdukart/linkify-urls": "^1.5.0",
     "@tdukart/react-redux-meteor-tdukart": "^4.6.2",
     "babel-runtime": "^6.26.0",
