@@ -15,9 +15,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}-{{ checksum ".meteor/packages" }}
+          - v2-dependencies-{{ checksum "package.json" }}-{{ checksum ".meteor/packages" }}
           # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          - v2-dependencies-
 
       # Restore meteor symlink when Meteor was restored from the cache
       - run: if [ -d ~/.meteor ]; then sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor; fi
@@ -29,7 +29,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-            - ~/.meteor
-          key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum ".meteor/packages" }}
+            - .meteor/local
+          key: v2-dependencies-{{ checksum "package.json" }}-{{ checksum ".meteor/packages" }}
 
       - run: npm run test
