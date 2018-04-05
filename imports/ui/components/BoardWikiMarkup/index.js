@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { filter, capitalize, map } from 'lodash';
+import { filter, map } from 'lodash';
 import { Panel, FormControl } from 'react-bootstrap';
 import { emojify } from 'node-emoji';
 
@@ -33,7 +33,7 @@ const BoardWikiMarkup = ({ stickies, columns = [] }) => {
 
 BoardWikiMarkup.propTypes = {
   stickies: PropTypes.arrayOf(PropTypes.any).isRequired,
-  columns: PropTypes.array.isRequired,
+  columns: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default BoardWikiMarkup;

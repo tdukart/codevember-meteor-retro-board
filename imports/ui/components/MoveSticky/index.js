@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal, FormGroup, ControlLabel, FormControl, Button, Form } from 'react-bootstrap';
-import { capitalize } from 'lodash';
 
 class MoveSticky extends React.Component {
   constructor(props) {
@@ -82,7 +81,7 @@ MoveSticky.propTypes = {
   onMove: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   columnId: PropTypes.string.isRequired,
-  columns: PropTypes.array.isRequired,
+  columns: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default MoveSticky;

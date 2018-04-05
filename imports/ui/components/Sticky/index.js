@@ -26,6 +26,7 @@ class Sticky extends React.Component {
       body,
       notes,
       columnId,
+      columns,
       color,
       creator,
       plusOnes,
@@ -181,7 +182,7 @@ Sticky.propTypes = {
   creator: PropTypes.string.isRequired,
   plusOnes: PropTypes.arrayOf(PropTypes.string).isRequired,
   color: PropTypes.string,
-  columns: PropTypes.array.isRequired,
+  columns: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 Sticky.defaultProps = {

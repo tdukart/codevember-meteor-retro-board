@@ -45,7 +45,7 @@ class CreateBoard extends React.Component {
     const handleSave = event => this.handleSave(event);
     const handleClose = event => this.handleClose(event);
 
-    const columnSetItems = Object.keys(columnSets).map((key) => (
+    const columnSetItems = Object.keys(columnSets).map(key => (
       <option key={key} value={key}>
         {map(columnSets[key], 'name').join('/')}
       </option>

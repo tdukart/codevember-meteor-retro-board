@@ -65,7 +65,7 @@ BoardSection.propTypes = {
   })).isRequired,
   onCreateSticky: PropTypes.func.isRequired,
   showAdd: PropTypes.bool.isRequired,
-  columns: PropTypes.array.isRequired,
+  columns: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default BoardSection;
