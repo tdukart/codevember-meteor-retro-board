@@ -22,8 +22,8 @@ class BoardList extends React.Component {
     this.state = { showCreateDialog: false };
   }
 
-  handleBoardCreate({ name }) {
-    Meteor.call('boards.insert', name);
+  handleBoardCreate({ name, columnSet }) {
+    Meteor.call('boards.insert', name, columnSet);
     this.setState({ showCreateDialog: false });
   }
 
@@ -34,6 +34,8 @@ class BoardList extends React.Component {
   render() {
     const { boards, listLoading, user } = this.props;
     const { showCreateDialog } = this.state;
+
+    const makeBoard = () => this.setState({ showCreateDialog: true });
 
     let boardList;
     if (listLoading) {
@@ -53,7 +55,8 @@ class BoardList extends React.Component {
     } else if (boards.length === 0) {
       boardList = (
         <Alert bsStyle="info">
-          No boards have been created. Create your first one below!
+          No boards have been created.
+          {listLoading || !user ? '' : <Button onClick={makeBoard}>Create New Board</Button>}
         </Alert>
       );
     } else {
@@ -69,8 +72,6 @@ class BoardList extends React.Component {
           </tr>
         </LinkContainer>
       ));
-
-      const makeBoard = () => this.setState({ showCreateDialog: true });
 
       const panelHeader = (
         <div>

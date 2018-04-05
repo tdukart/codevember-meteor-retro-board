@@ -16,6 +16,10 @@ Boards.schema = new SimpleSchema({
     type: Number,
     defaultValue: 1,
   },
+  columnSet: {
+    type: String,
+    defaultValue: 'ssc',
+  },
 });
 
 Boards.helpers({
@@ -27,8 +31,9 @@ Boards.helpers({
 
 if (Meteor.isServer) {
   Meteor.methods({
-    'boards.insert': function boardsInsert(name) {
+    'boards.insert': function boardsInsert(name, columnSet = 'ssc') {
       check(name, String);
+      check(columnSet, String);
 
       const userId = Meteor.userId();
 
@@ -39,6 +44,7 @@ if (Meteor.isServer) {
 
       return Boards.insert({
         name,
+        columnSet,
         createdAt: Date.now(),
         owner: userId,
       });

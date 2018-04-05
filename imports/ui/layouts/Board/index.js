@@ -15,7 +15,7 @@ import CreateSticky from '../../components/CreateSticky';
 import BoardWikiMarkup from '../../components/BoardWikiMarkup';
 import AccountsUiWrapper from '../../components/AccountsUiWrapper';
 
-import columns from '../../util/columns';
+import columnSets from '../../util/columnSets';
 
 class Board extends React.Component {
   constructor(props) {
@@ -44,6 +44,7 @@ class Board extends React.Component {
   render() {
     const {
       name,
+      columns,
       stickies,
       stickiesLoading,
       user,
@@ -66,15 +67,16 @@ class Board extends React.Component {
       );
     }
 
-    const sections = columns.map(columnId => (
-      <Col xs={12} sm={6} md={3} key={columnId}>
+    const sections = columns.map(({ key, name }) => (
+      <Col xs={12} sm={6} md={12/columns.length} key={key}>
         <BoardSection
-          title={capitalize(columnId)}
-          stickies={filter(stickies, { columnId })}
+          title={name}
+          stickies={filter(stickies, { key })}
           showAdd={!!user}
+          columns={columns}
           onCreateSticky={() => {
             this.setState({
-              activeColumn: columnId,
+              activeColumn: key,
               showStickyDialog: true,
             });
           }}
@@ -102,6 +104,8 @@ class Board extends React.Component {
           onCreate={onStickyCreate}
           onClose={onStickyDialogClose}
           body=""
+          notes=""
+          showNotes={false}
         />
       </div>
     );
@@ -111,6 +115,7 @@ class Board extends React.Component {
 Board.propTypes = {
   name: PropTypes.string.isRequired,
   stickies: PropTypes.arrayOf(PropTypes.any).isRequired,
+  columns: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string, key: PropTypes.string })).isRequired,
   match: ReactRouterPropTypes.match.isRequired, // eslint-disable-line react/no-typos
   stickiesLoading: PropTypes.bool.isRequired,
   user: PropTypes.shape({ _id: PropTypes.string }).isRequired,
@@ -129,6 +134,7 @@ export default withTracker(({ match }) => {
   return {
     stickiesLoading: !(stickyHandle.ready()),
     name: board.name || '',
+    columns: columnSets[board.columnSet || 'ssc'],
     stickies,
     user,
   };

@@ -166,6 +166,7 @@ class Sticky extends React.Component {
           onMove={onStickyMove}
           onClose={onMoveDialogClose}
           columnId={columnId}
+          columns={columns}
         />
       </div>
     );
@@ -180,6 +181,7 @@ Sticky.propTypes = {
   creator: PropTypes.string.isRequired,
   plusOnes: PropTypes.arrayOf(PropTypes.string).isRequired,
   color: PropTypes.string,
+  columns: PropTypes.array.isRequired,
 };
 
 Sticky.defaultProps = {

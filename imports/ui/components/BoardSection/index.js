@@ -11,6 +11,7 @@ const BoardSection = ({
   stickies,
   onCreateSticky,
   showAdd,
+  columns,
 }) => {
   const stickyList = stickies.map(stickyData => (
     <Sticky
@@ -19,6 +20,7 @@ const BoardSection = ({
       body={stickyData.body}
       notes={stickyData.notes}
       color={stickyData.color}
+      columns={columns}
       columnId={stickyData.columnId}
       plusOnes={stickyData.plusOnes || []}
       creator={stickyData.creator}
@@ -63,6 +65,7 @@ BoardSection.propTypes = {
   })).isRequired,
   onCreateSticky: PropTypes.func.isRequired,
   showAdd: PropTypes.bool.isRequired,
+  columns: PropTypes.array.isRequired,
 };
 
 export default BoardSection;
