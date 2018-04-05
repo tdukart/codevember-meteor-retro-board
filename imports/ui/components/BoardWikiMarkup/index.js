@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { filter, capitalize } from 'lodash';
+import { filter, map } from 'lodash';
 import { Panel, FormControl } from 'react-bootstrap';
 import { emojify } from 'node-emoji';
 
-import columns from '../../util/columns';
-
-const BoardWikiMarkup = ({ stickies }) => {
-  const columnsWikiMarkup = columns.map((columnId) => {
-    const columnStickies = filter(stickies, { columnId });
+const BoardWikiMarkup = ({ stickies, columns = [] }) => {
+  const columnsWikiMarkup = columns.map(({ key }) => {
+    const columnStickies = filter(stickies, { columnId: key });
     const columnListItems = columnStickies.map((sticky) => {
       const notes = sticky.notes ? `- ${sticky.notes}` : '';
       return `* *${emojify(sticky.body)}* ${emojify(notes)}`;
@@ -21,7 +19,7 @@ const BoardWikiMarkup = ({ stickies }) => {
     return columnListItems.join('\n');
   });
 
-  const columnTitles = columns.map(columnId => (capitalize(columnId)));
+  const columnTitles = map(columns, 'name');
 
   const boardWikiMarkup = `||${columnTitles.join('||')}||\n|${columnsWikiMarkup.join('|')}|`;
   const panelHeader = <h2>Wiki Markup</h2>;
@@ -35,6 +33,7 @@ const BoardWikiMarkup = ({ stickies }) => {
 
 BoardWikiMarkup.propTypes = {
   stickies: PropTypes.arrayOf(PropTypes.any).isRequired,
+  columns: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default BoardWikiMarkup;

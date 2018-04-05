@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal, FormGroup, ControlLabel, FormControl, Button, Form } from 'react-bootstrap';
-import { capitalize } from 'lodash';
-
-import columns from '../../util/columns';
 
 class MoveSticky extends React.Component {
   constructor(props) {
@@ -39,15 +36,15 @@ class MoveSticky extends React.Component {
   }
 
   render() {
-    const { show } = this.props;
+    const { show, columns } = this.props;
     const { columnId } = this.state;
     const handleColumnChange = event => this.handleChange('columnId', event);
     const handleSave = event => this.handleSave(event);
     const handleClose = event => this.handleClose(event);
 
-    const columnOptions = columns.map(columnKey => (
-      <option key={columnKey} value={columnKey}>
-        {capitalize(columnKey)}
+    const columnOptions = columns.map(({ key, name }) => (
+      <option key={key} value={key}>
+        {name}
       </option>
     ));
 
@@ -84,6 +81,7 @@ MoveSticky.propTypes = {
   onMove: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   columnId: PropTypes.string.isRequired,
+  columns: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default MoveSticky;

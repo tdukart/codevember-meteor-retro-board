@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { Grid, Row, Col, Panel } from 'react-bootstrap';
-import { capitalize, filter } from 'lodash';
+import { filter } from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
@@ -15,7 +15,7 @@ import CreateSticky from '../../components/CreateSticky';
 import BoardWikiMarkup from '../../components/BoardWikiMarkup';
 import AccountsUiWrapper from '../../components/AccountsUiWrapper';
 
-import columns from '../../util/columns';
+import columnSets from '../../util/columnSets';
 
 class Board extends React.Component {
   constructor(props) {
@@ -44,6 +44,7 @@ class Board extends React.Component {
   render() {
     const {
       name,
+      columns,
       stickies,
       stickiesLoading,
       user,
@@ -66,15 +67,16 @@ class Board extends React.Component {
       );
     }
 
-    const sections = columns.map(columnId => (
-      <Col xs={12} sm={6} md={3} key={columnId}>
+    const sections = columns.map(({ key, name: columnName }) => (
+      <Col xs={12} sm={6} md={12 / columns.length} key={key}>
         <BoardSection
-          title={capitalize(columnId)}
-          stickies={filter(stickies, { columnId })}
+          title={columnName}
+          stickies={filter(stickies, { columnId: key })}
           showAdd={!!user}
+          columns={columns}
           onCreateSticky={() => {
             this.setState({
-              activeColumn: columnId,
+              activeColumn: key,
               showStickyDialog: true,
             });
           }}
@@ -94,7 +96,7 @@ class Board extends React.Component {
             {stickiesLoading ? <Spinner /> : sections}
           </Row>
           <Row>
-            {stickiesLoading ? '' : <BoardWikiMarkup stickies={stickies} />}
+            {stickiesLoading ? '' : <BoardWikiMarkup columns={columns} stickies={stickies} />}
           </Row>
         </Grid>
         <CreateSticky
@@ -102,6 +104,8 @@ class Board extends React.Component {
           onCreate={onStickyCreate}
           onClose={onStickyDialogClose}
           body=""
+          notes=""
+          showNotes={false}
         />
       </div>
     );
@@ -111,6 +115,10 @@ class Board extends React.Component {
 Board.propTypes = {
   name: PropTypes.string.isRequired,
   stickies: PropTypes.arrayOf(PropTypes.any).isRequired,
+  columns: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    key: PropTypes.string,
+  })).isRequired,
   match: ReactRouterPropTypes.match.isRequired, // eslint-disable-line react/no-typos
   stickiesLoading: PropTypes.bool.isRequired,
   user: PropTypes.shape({ _id: PropTypes.string }).isRequired,
@@ -129,6 +137,7 @@ export default withTracker(({ match }) => {
   return {
     stickiesLoading: !(stickyHandle.ready()),
     name: board.name || '',
+    columns: columnSets[board.columnSet || 'ssc'],
     stickies,
     user,
   };
