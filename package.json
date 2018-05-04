@@ -47,7 +47,7 @@
     "eslint-plugin-mocha": "^4.12.1",
     "eslint-plugin-react": "^7.4.0",
     "faker": "^4.1.0",
-    "node-sass": "^4.6.0",
+    "node-sass": "^4.9.0",
     "phantomjs-prebuilt": "^2.1.16"
   },
   "cssModules": {
