@@ -15,7 +15,7 @@ Meteor.startup(() => {
         text: `Retro board is booted and ready at ${Meteor.absoluteUrl()}`,
       };
       webhook.send(message);
-    })
+    });
   }
 });
 
