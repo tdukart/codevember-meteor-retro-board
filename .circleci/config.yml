@@ -67,6 +67,9 @@ jobs:
           command: |
             mkdir -p ~/build-temp
             cp /usr/local/bin/meteor ~/build-temp/meteor-bin
+      - run:
+          name: build tarball
+          command: meteor npm run build
       - save_cache:
           key: build-temp-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
           paths:
@@ -89,3 +92,6 @@ jobs:
       - store_artifacts:
           path: ~/test-results
           destination: test-results
+      - store_artifacts:
+          path: ~/retro-board-tarball
+          destination: tarball
